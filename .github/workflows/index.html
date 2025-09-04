@@ -1,1 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NxUtils</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #f1f1f1;
+    }
+    header {
+      background: #1e1e1e;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #333;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+      color: #00c4ff;
+    }
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #f1f1f1;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #00c4ff;
+    }
+    .container {
+      padding: 20px;
+    }
+    .utility {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+    /* Calculator styles */
+    .calc {
+      max-width: 250px;
+      margin: 20px auto;
+      background: #1e1e1e;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .calc input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      text-align: right;
+    }
+    .calc button {
+      width: 22%;
+      margin: 2%;
+      padding: 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background: #333;
+      color: white;
+      cursor: pointer;
+    }
+    .calc button:hover {
+      background: #00c4ff;
+    }
+    /* Downloader */
+    .downloader {
+      max-width: 500px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .downloader input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+    .downloader button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background: #00c4ff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .downloader button:hover {
+      background: #009ec2;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NxUtils</h1>
+    <nav>
+      <a href="#" onclick="showUtility('calculator')">Calculator</a>
+      <a href="#" onclick="showUtility('downloader')">Downloader</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- Calculator -->
+    <div id="calculator" class="utility active">
+      <h2>Calculator</h2>
+      <div class="calc">
+        <input type="text" id="calc-display" disabled>
+        <div>
+          <button onclick="calcInput('7')">7</button>
+          <button onclick="calcInput('8')">8</button>
+          <button onclick="calcInput('9')">9</button>
+          <button onclick="calcInput('/')">÷</button>
+        </div>
+        <div>
+          <button onclick="calcInput('4')">4</button>
+          <button onclick="calcInput('5')">5</button>
+          <button onclick="calcInput('6')">6</button>
+          <button onclick="calcInput('*')">×</button>
+        </div>
+        <div>
+          <button onclick="calcInput('1')">1</button>
+          <button onclick="calcInput('2')">2</button>
+          <button onclick="calcInput('3')">3</button>
+          <button onclick="calcInput('-')">-</button>
+        </div>
+        <div>
+          <button onclick="calcInput('0')">0</button>
+          <button onclick="calcInput('.')">.</button>
+          <button onclick="calculate()">=</button>
+          <button onclick="calcInput('+')">+</button>
+        </div>
+        <div>
+          <button onclick="clearCalc()" style="width:96%">Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Downloader -->
+    <div id="downloader" class="utility">
+      <h2>Universal Downloader</h2>
+      <div class="downloader">
+        <input type="text" id="download-url" placeholder="Enter URL (YouTube, SoundCloud, etc.)">
+        <button onclick="downloadStub()">Download</button>
+        <p id="download-status"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Navigation
+    function showUtility(id) {
+      document.querySelectorAll('.utility').forEach(u => u.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    // Calculator
+    function calcInput(value) {
+      document.getElementById("calc-display").value += value;
+    }
+    function calculate() {
+      try {
+        let result = eval(document.getElementById("calc-display").value);
+        document.getElementById("calc-display").value = result;
+      } catch {
+        document.getElementById("calc-display").value = "Error";
+      }
+    }
+    function clearCalc() {
+      document.getElementById("calc-display").value = "";
+    }
+
+    // Downloader (stub for now)
+    function downloadStub() {
+      const url = document.getElementById("download-url").value;
+      const status = document.getElementById("download-status");
+      if (!url) {
+        status.textContent = "❌ Please enter a URL.";
+        return;
+      }
+      status.textContent = "⚡ Downloader backend required. (Hook this up to yt-dlp server)";
+    }
+  </script>
+</body>
+</html>
 
